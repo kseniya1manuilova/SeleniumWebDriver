@@ -17,6 +17,6 @@ public class MySeleniumTest {
         List<WebElement> links = linksContainer.findElements(By.tagName("a"));
         Assert.assertEquals(links.size(), 44);
         links.get(9).click();
-        driver.close();
+        driver.quit();
     }
 }
