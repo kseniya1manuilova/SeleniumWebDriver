@@ -22,14 +22,8 @@
         </dependency>
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
-            <artifactId>selenium-api</artifactId>
-            <version>4.37.0</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.seleniumhq.selenium</groupId>
-            <artifactId>selenium-chrome-driver</artifactId>
-            <version>4.37.0</version>
+            <artifactId>selenium-java</artifactId>
+            <version>4.35.0</version>
         </dependency>
     </dependencies>
 
