@@ -77,4 +77,33 @@ public class DucksTests extends HomePage {
         cartPage.clickCartPage();
         Assert.assertEquals(cartPage.getOrderSummaryText(), "Order Summary");
     }
+
+    @Test
+    public void wrongCredentialsLoginTest() {
+        LoginPage loginPage = new LoginPage(driver);
+
+        loginPage.loginFlowWithAllData("kseniya1@gmail.com", "1234");
+
+        Assert.assertEquals(loginPage.getMessageText(), "Wrong password or the account is disabled, or does not exist");
+    }
+
+    @Test
+    public void wrongCredentialsLoginTest2() {
+        LoginPage loginPage = new LoginPage(driver);
+
+        loginPage.loginFlowWithEmailDataOnly("kseniya1@gmail.com");
+
+        Assert.assertEquals(loginPage.getMessageText(),
+                "You must provide both email address and password.");
+    }
+
+    @Test
+    public void succsesfulLoginTest() {
+        LoginPage loginPage = new LoginPage(driver);
+
+        loginPage.loginFlowWithAllData("kseniya1manuilova@gmail.com", "password123!");
+
+        Assert.assertEquals(loginPage.getMessageText(),
+                "You are now logged in as Kseniya Manuilava.");
+    }
 }
