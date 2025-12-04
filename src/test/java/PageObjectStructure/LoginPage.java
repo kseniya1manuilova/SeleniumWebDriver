@@ -1,3 +1,5 @@
+package PageObjectStructure;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -43,5 +45,10 @@ public class LoginPage {
     public String getMessageText() {
         WebElement pageHeader = wait.until(ExpectedConditions.visibilityOfElementLocated(noticeText));
         return pageHeader.getText();
+    }
+
+    public boolean messageTextIsVisible(){
+        return driver.findElement(noticeText).isDisplayed();
+
     }
 }

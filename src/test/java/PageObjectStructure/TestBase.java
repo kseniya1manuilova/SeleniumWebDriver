@@ -1,3 +1,5 @@
+package PageObjectStructure;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -6,8 +8,7 @@ import org.testng.annotations.BeforeMethod;
 
 import java.time.Duration;
 
-public class HomePage {
-
+public class TestBase {
     protected WebDriver driver;
 
     @BeforeMethod
@@ -28,11 +29,6 @@ public class HomePage {
     }
 
     public void clickHomePage() {
-        driver.findElement(By.cssSelector
-                ("li.general-0 > a[href='https://litecart.stqa.ru/en/']"));
-    }
-
-    public void openCategoriesPage(){
         driver.findElement(By.cssSelector
                 ("li.general-0 > a[href='https://litecart.stqa.ru/en/']"));
     }

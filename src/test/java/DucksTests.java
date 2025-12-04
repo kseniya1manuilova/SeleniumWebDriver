@@ -1,12 +1,14 @@
+import PageObjectStructure.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 
 import java.time.Duration;
 
-public class DucksTests extends HomePage {
+public class DucksTests extends TestBase {
 
     @Test
     public void openHomePageScreenTest() {
@@ -83,8 +85,13 @@ public class DucksTests extends HomePage {
         LoginPage loginPage = new LoginPage(driver);
 
         loginPage.loginFlowWithAllData("kseniya1@gmail.com", "1234");
+        loginPage.getMessageText();
 
-        Assert.assertEquals(loginPage.getMessageText(), "Wrong password or the account is disabled, or does not exist");
+        SoftAssert softAssert = new SoftAssert();
+        softAssert.assertTrue(loginPage.messageTextIsVisible());
+
+        softAssert.assertEquals(loginPage.getMessageText(), "Wrong password or the account is disabled, or does not exist");
+        softAssert.assertAll();
     }
 
     @Test
@@ -93,8 +100,13 @@ public class DucksTests extends HomePage {
 
         loginPage.loginFlowWithEmailDataOnly("kseniya1@gmail.com");
 
-        Assert.assertEquals(loginPage.getMessageText(),
+        SoftAssert softAssert = new SoftAssert();
+
+        softAssert.assertTrue(loginPage.messageTextIsVisible());
+        softAssert.assertEquals(loginPage.getMessageText(),
                 "You must provide both email address and password.");
+
+        softAssert.assertAll();
     }
 
     @Test
@@ -103,8 +115,12 @@ public class DucksTests extends HomePage {
 
         loginPage.loginFlowWithAllData("kseniya1manuilova@gmail.com", "password123!");
 
-        Assert.assertEquals(loginPage.getMessageText(),
+        SoftAssert softAssert = new SoftAssert();
+        softAssert.assertTrue(loginPage.messageTextIsVisible());
+        softAssert.assertEquals(loginPage.getMessageText(),
                 "You are now logged in as Kseniya Manuilava.");
+
+        softAssert.assertAll();
     }
 
     @Test
@@ -113,7 +129,6 @@ public class DucksTests extends HomePage {
 
         categoryPage.openCategoriesPage();
         categoryPage.categoriesPageContent();
-
 
     }
 }
