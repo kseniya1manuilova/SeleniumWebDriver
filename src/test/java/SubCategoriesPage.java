@@ -6,20 +6,20 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
-public class SubCategoryPage {
+public class SubCategoriesPage {
     private WebDriver driver;
     private WebDriverWait wait;
 
     private By headerLink = By.cssSelector("h1.title");
-    private By subCategoryPageLink = By.cssSelector
+    private By subCategoriesPageLink = By.cssSelector
             ("li.category-2 > a[href*='subcategory-c-2']");
 
-    public SubCategoryPage(WebDriver driver) {
+    public SubCategoriesPage(WebDriver driver) {
         this.driver = driver;
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(5));
     }
 
-    public String getSubCategoryHeaderText() {
+    public String getSubCategoriesHeaderText() {
         WebElement pageHeader = wait.until(ExpectedConditions.visibilityOfElementLocated(headerLink));
         return pageHeader.getText();
     }

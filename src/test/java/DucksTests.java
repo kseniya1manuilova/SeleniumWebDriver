@@ -1,7 +1,10 @@
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+
+import java.time.Duration;
 
 public class DucksTests extends HomePage {
 
@@ -18,8 +21,8 @@ public class DucksTests extends HomePage {
 
     @Test
     public void openCategoriesScreenTest() {
-        CategoryPage categoryPage = new CategoryPage(driver);
-        categoryPage.openCategoryPage();
+        CategoriesPage categoryPage = new CategoriesPage(driver);
+        categoryPage.openCategoriesPage();
 
         WebElement pageHeader = driver.findElement(By.cssSelector("h1.title"));
 
@@ -28,13 +31,13 @@ public class DucksTests extends HomePage {
 
     @Test
     public void openSubCategoriesScreenTest() {
-        CategoryPage categoryPage = new CategoryPage(driver);
-        SubCategoryPage subCategoryPage = new SubCategoryPage(driver);
+        CategoriesPage categoryPage = new CategoriesPage(driver);
+        SubCategoriesPage subCategoryPage = new SubCategoriesPage(driver);
 
         categoryPage.openSubCategoryDropDown();
         categoryPage.clickSubCategory();
 
-        Assert.assertEquals(subCategoryPage.getSubCategoryHeaderText(), "Subcategory");
+        Assert.assertEquals(subCategoryPage.getSubCategoriesHeaderText(), "Subcategory");
     }
 
 
@@ -45,5 +48,33 @@ public class DucksTests extends HomePage {
         String pageTitle = driver.getTitle();
 
         Assert.assertEquals(pageTitle, "Online Store | My Store");
+    }
+
+    @Test
+    public void emptyCartTest() {
+        CartPage cartPage = new CartPage(driver);
+        cartPage.clickCartPage();
+
+        Assert.assertEquals(cartPage.getEmptyCartHeaderText(), "There are no items in your cart.");
+    }
+
+    @Test
+    public void cartHasItemTest() {
+        CategoriesPage categoryPage = new CategoriesPage(driver);
+        ItemPage itemPage = new ItemPage(driver);
+        CartPage cartPage = new CartPage(driver);
+
+        categoryPage.openCategoriesPage();
+        categoryPage.openYellowDuckInfoPage();
+        itemPage.selectItemSize();
+        itemPage.addItemToCart();
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
+        wait.until(driver -> {
+            WebElement quantity = driver.findElement(By.cssSelector("span.quantity"));
+            return Integer.parseInt(quantity.getText()) > 0;
+        });
+        cartPage.clickCartPage();
+        Assert.assertEquals(cartPage.getOrderSummaryText(), "Order Summary");
     }
 }

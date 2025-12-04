@@ -31,4 +31,9 @@ public class HomePage {
         driver.findElement(By.cssSelector
                 ("li.general-0 > a[href='https://litecart.stqa.ru/en/']"));
     }
+
+    public void openCategoriesPage(){
+        driver.findElement(By.cssSelector
+                ("li.general-0 > a[href='https://litecart.stqa.ru/en/']"));
+    }
 }

@@ -7,28 +7,31 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
-public class CategoryPage {
+public class CategoriesPage {
     private WebDriver driver;
     private WebDriverWait wait;
 
-    private By categoryPageLink = By.cssSelector
+    private By categoriesPageLink = By.cssSelector
             ("li.category-1");
 
-    private By subCategoryLink = By.cssSelector
+    private By subCategoryink = By.cssSelector
             ("li.category-2 > a[href*='subcategory-c-2']");
 
-    public CategoryPage(WebDriver driver) {
+    private By yellowDuckLink = By.cssSelector
+            ("a[title='Yellow Duck']");
+
+    public CategoriesPage(WebDriver driver) {
         this.driver = driver;
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(5));
     }
 
-    public void openCategoryPage() {
-        driver.findElement(categoryPageLink).click();
+    public void openCategoriesPage() {
+        driver.findElement(categoriesPageLink).click();
     }
 
 
     public void openSubCategoryDropDown() {
-        WebElement categoryElement = wait.until(ExpectedConditions.visibilityOfElementLocated(categoryPageLink));
+        WebElement categoryElement = wait.until(ExpectedConditions.visibilityOfElementLocated(categoriesPageLink));
 
         Actions actions = new Actions(driver);
         actions.moveToElement(categoryElement).perform();
@@ -36,7 +39,12 @@ public class CategoryPage {
     }
 
     public void clickSubCategory() {
-        WebElement subCategoriesLink = wait.until(ExpectedConditions.elementToBeClickable(subCategoryLink));
+        WebElement subCategoriesLink = wait.until(ExpectedConditions.elementToBeClickable(subCategoryink));
+        subCategoriesLink.click();
+    }
+
+    public void openYellowDuckInfoPage() {
+        WebElement subCategoriesLink = wait.until(ExpectedConditions.elementToBeClickable(yellowDuckLink));
         subCategoriesLink.click();
     }
 
