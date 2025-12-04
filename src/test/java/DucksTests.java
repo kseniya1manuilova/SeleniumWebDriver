@@ -106,4 +106,14 @@ public class DucksTests extends HomePage {
         Assert.assertEquals(loginPage.getMessageText(),
                 "You are now logged in as Kseniya Manuilava.");
     }
+
+    @Test
+    public void isAnyContentInCategory() {
+        CategoriesPage categoryPage = new CategoriesPage(driver);
+
+        categoryPage.openCategoriesPage();
+        categoryPage.categoriesPageContent();
+
+
+    }
 }

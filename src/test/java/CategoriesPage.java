@@ -4,8 +4,10 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
 
 import java.time.Duration;
+import java.util.List;
 
 public class CategoriesPage {
     private WebDriver driver;
@@ -48,4 +50,9 @@ public class CategoriesPage {
         subCategoriesLink.click();
     }
 
+    public void categoriesPageContent(){
+        List<WebElement> children = driver.findElements(By.cssSelector
+                (".listing-wrapper .product.column.shadow.hover-light"));
+        Assert.assertFalse(children.isEmpty());
+    }
 }
