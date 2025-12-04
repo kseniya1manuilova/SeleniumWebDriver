@@ -3,6 +3,7 @@ package PageObjectStructure;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.safari.SafariDriver;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 
@@ -13,7 +14,15 @@ public class TestBase {
 
     @BeforeMethod
     public void setup() {
-        driver = new ChromeDriver();
+
+        String browser = System.getProperty("browser", "chrome");
+
+        driver = switch (browser) {
+            case "chrome" -> new ChromeDriver();
+            case "safari" -> new SafariDriver();
+            default -> new ChromeDriver();
+        };
+
         driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(5));
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
         driver.get("https://litecart.stqa.ru/en/");
