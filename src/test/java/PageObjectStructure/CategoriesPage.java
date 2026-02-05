@@ -11,18 +11,20 @@ import org.testng.Assert;
 import java.time.Duration;
 import java.util.List;
 
+import static PageObjectStructure.Locators.getLocator;
+
 public class CategoriesPage {
     private WebDriver driver;
     private WebDriverWait wait;
 
-    private By categoriesPageLink = By.cssSelector
-            ("li.category-1");
-
-    private By subCategoryink = By.cssSelector
-            ("li.category-2 > a[href*='subcategory-c-2']");
-
-    private By yellowDuckLink = By.cssSelector
-            ("a[title='Yellow Duck']");
+//    private By categoriesPageLink = By.cssSelector
+//            ("li.category-1");
+//
+//    private By subCategoryink = By.cssSelector
+//            ("li.category-2 > a[href*='subcategory-c-2']");
+//
+//    private By yellowDuckLink = By.cssSelector
+//            ("a[title='Yellow Duck']");
 
     public CategoriesPage(WebDriver driver) {
         this.driver = driver;
@@ -30,12 +32,14 @@ public class CategoriesPage {
     }
 
     public void openCategoriesPage() {
-        driver.findElement(categoriesPageLink).click();
+        driver.findElement(getLocator
+                ("CategoriesPage.CategoriesPageLink")).click();
     }
 
 
     public void openSubCategoryDropDown() {
-        WebElement categoryElement = wait.until(ExpectedConditions.visibilityOfElementLocated(categoriesPageLink));
+        WebElement categoryElement = wait.until(ExpectedConditions.visibilityOfElementLocated(getLocator
+                ("CategoriesPage.CategoriesPageLink")));
 
         Actions actions = new Actions(driver);
         actions.moveToElement(categoryElement).perform();
@@ -43,16 +47,18 @@ public class CategoriesPage {
     }
 
     public void clickSubCategory() {
-        WebElement subCategoriesLink = wait.until(ExpectedConditions.elementToBeClickable(subCategoryink));
+        WebElement subCategoriesLink = wait.until(ExpectedConditions.elementToBeClickable(getLocator
+                ("CategoriesPage.SubCategoriesPageLink")));
         subCategoriesLink.click();
     }
 
     public void openYellowDuckInfoPage() {
-        WebElement subCategoriesLink = wait.until(ExpectedConditions.elementToBeClickable(yellowDuckLink));
+        WebElement subCategoriesLink = wait.until(ExpectedConditions.elementToBeClickable(getLocator
+                ("CategoriesPage.YellowDuckLink")));
         subCategoriesLink.click();
     }
 
-    public void categoriesPageContent(){
+    public void categoriesPageContent() {
         List<WebElement> children = driver.findElements(By.cssSelector
                 (".listing-wrapper .product.column.shadow.hover-light"));
         Assert.assertFalse(children.isEmpty());
